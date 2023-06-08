@@ -1,24 +1,12 @@
-// Main process for the final project
-
-// Libraries
-#include "init.h"
-
+#include "catan.h"
 // Main function
-int main()
-{
-    // Initialize
-    project_init();
-
-    // Main loop
-    // while (1)
-    // {
-    //     // Update
-    //     // project_update();
-    // }
-    
-    // Print the map for debugging
-    print_map();
-
-    // Exit program
+int main(){
+    // Initialize the game state
+    GameState state;
+    setupGame(&state);
+    // Print the board
+    printBoard(&state);
+    // Print the player
+    printPlayer(&state.players[0]);
     return 0;
 }
