@@ -41,6 +41,9 @@ struct
 }
 PLAYER;
 
+// compare two coordinates, return 1 if they are equal, 0 if not
+int compare_coordinates(COORDINATES a, COORDINATES b);
+
 // add a road into player
 void add_road(PLAYER *player, COORDINATES start, COORDINATES end);
 
