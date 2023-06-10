@@ -40,7 +40,7 @@ void printBoard(GameState *state) {
 
     for (int i = 0; i < 5; i++) {
         for (int s = 0; s < spaces[i]; s++) {
-            printf("    ");
+            printf("  ");
         }
         for (int j = 0; j < layout[i]; j++) {
             char resource;

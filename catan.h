@@ -1,5 +1,4 @@
 #pragma once
-
 #include "catan_struct.h"
 #include <stdio.h>
 #include <stdlib.h>
