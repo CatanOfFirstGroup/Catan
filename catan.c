@@ -11,7 +11,7 @@ void setupGame(GameState *state) {
         {GRAIN, ORE, LUMBER, WOOL},
         {BRICK, GRAIN, ORE}
     };
-
+    // Set up the tiles
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < layout[i]; j++) {
             state->board[i][j + spaces[i]].type = resources[i][j];
@@ -59,6 +59,8 @@ void printBoard(GameState *state) {
     }
 }
 
+
+
 void printPlayer(Player *player) {
     printf("Player:\n");
     printf("    Brick: %d\n", player->resourceCards[0]);
@@ -71,4 +73,38 @@ void printPlayer(Player *player) {
     printf("    Settlements: %d\n", player->settlements);
     printf("    Cities: %d\n", player->cities);
     printf("    Roads: %d\n", player->roads);
+}
+
+void printGameState(GameState *state) {
+    printf("Current Turn: %d\n", state->currentTurn);
+    printf("Board:\n");
+    printBoard(state);
+    printf("Players:\n");
+    for (int i = 0; i < 4; i++) {
+        printPlayer(&state->players[i]);
+    }
+}
+
+void endTurn(GameState *state) {
+    state->currentTurn = (state->currentTurn + 1) % 4;
+}
+
+void distributeResources(GameState *state, int diceRoll) {
+    // This function distributes resources to all players based on the dice roll
+    for (int i = 0; i < 4; i++) { // Loop over all players
+        for (int j = 0; j < 5; j++) { // Loop over all tiles
+            for (int k = 0; k < 5; k++) {
+                if (state->board[j][k].numberToken == diceRoll) {
+                    state->players[i].resourceCards[state->board[j][k].type]++;
+                }
+            }
+        }
+    }
+}
+
+void startTurn(GameState *state) {
+    int diceRoll = (rand() % 6) + 1 + (rand() % 6) + 1; // Roll two 6-sided dice
+    printf("Player %d rolled a %d.\n", state->currentTurn + 1, diceRoll);
+    distributeResources(state, diceRoll);
+    endTurn(state);
 }
