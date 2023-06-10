@@ -1,7 +1,7 @@
 // Main process for the final project
 
 // Libraries
-#include "init.h"
+#include "project.h"
 
 // Main function
 int main()
@@ -16,8 +16,8 @@ int main()
     //     // project_update();
     // }
     
-    // Print the map for debugging
-    print_map();
+    // Print the map
+    print_map;
 
     // Exit program
     return 0;
