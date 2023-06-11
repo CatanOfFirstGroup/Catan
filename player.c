@@ -10,6 +10,6 @@ void add_road(PLAYER *player, COORDINATES start, COORDINATES end) {
     // if not, add the road to the first
     int added = 0;
     for (PLAYER_ROAD *road = player->roads; road != NULL; road = road->next) {
-        if (compare_coordinates(road->start, start) && compare_coordinates(road->end, end)) {
+        if (compare_coordinates(road->start, start) && compare_coordinates(road->end, end)) {}
     }
 }
