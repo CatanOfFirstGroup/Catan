@@ -1,36 +1,44 @@
-#include "catan.h"
-// Main function
+#include "function/tool.h"
+#include "game/game.h"
+#include <ncurses.h>
+
 int main() {
-    // Initialize the game state
-    GameState state;
-    setupGame(&state);
+	// Initialization
+	initscr();
+	cbreak();
+	noecho();
 
-    // game loop
-    while (1) {
-        // Print the board
-        printBoard(&state);
-        // Print the player
-        printPlayer(&state.players[state.currentTurn]);
-        startTurn(&state);
-        // Print the current turn
-        printf("Current turn: %d\n", state.currentTurn);
-        // Print the current player's resources
-        printf("Current player's resources: ");
-        for (int i = 0; i < 5; i++) {
-            printf("%d ", state.players[state.currentTurn].resourceCards[i]);
-        }
-        printf("\n");
-        // Print the current player's development cards
-        printf("Current player's development cards: %d\n", state.players[state.currentTurn].developmentCards);
-        // Print the current player's settlements
-        printf("Current player's settlements: %d\n", state.players[state.currentTurn].settlements);
-        // Print the current player's cities
-        printf("Current player's cities: %d\n", state.players[state.currentTurn].cities);
-        // Print the current player's roads
-        printf("Current player's roads: %d\n", state.players[state.currentTurn].roads);
-        
-        break;
-    }
+	// Read the terminal screen size
+	int row, col;
+	getmaxyx(stdscr, row, col);
+	curs_set(0);
+	refresh();
 
-    return 0;
+	// Generate startup screen
+	WINDOW *startup = newwin(row, col, 0, 0);
+	int action = startup_init(startup, row, col);
+
+	// Generate game screens
+	WINDOW *board = newwin(row, col / 3, 0, 0);
+	WINDOW *player = newwin(row / 2, col / 3, 0, col / 2);
+	WINDOW *progress = newwin(row / 2, col / 3, row / 2, col / 2);
+
+	if(action == 0) {
+		GameState state;
+		clear_screen();
+		game_init(board, player, progress, &state);
+		game_loop(board, player, progress, &state);
+	}
+	else if(action == 1) {
+		// menu_init()
+		// To be implemented
+	}
+	else if(action == 2) {
+		endwin();
+		return 0;
+	}
+
+	getch();
+	endwin();
+	return 0;
 }

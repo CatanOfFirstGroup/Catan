@@ -1,33 +1,38 @@
-CC=gcc
-OBJDIR:=$(shell [ -d obj ] || mkdir obj && echo "obj")
-CFLAGS=-Wall -Wextra -std=c11 -D_BSD_SOURCE 
-LDFLAGS=-lm -lc 
+CC = gcc
+LDLIBS = -lncurses
 
-BUILD_DIR=$(shell [ -d build ] || mkdir build && echo "build")
-TARGETS=catan
-catan_OBJ=catan.o main.o
+SRCDIR = .
+FUNCTION_DIR = function
+GAME_DIR = game
+OBJDIR = obj
 
+SRC = $(wildcard $(SRCDIR)/*.c)
+FUNCTION_SRC = $(wildcard $(FUNCTION_DIR)/*.c)
+GAME_SRC = $(wildcard $(GAME_DIR)/*.c)
 
+OBJ = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRC))
+FUNCTION_OBJ = $(patsubst $(FUNCTION_DIR)/%.c,$(OBJDIR)/%.o,$(FUNCTION_SRC))
+GAME_OBJ = $(patsubst $(GAME_DIR)/%.c,$(OBJDIR)/%.o,$(GAME_SRC))
 
-.PHONY: all
+EXECUTABLE = main
 
-all: CFLAGS:=$(CFLAGS) -O3
-all: $(TARGETS) 
+all: $(EXECUTABLE)
 
-debug: CFLAGS:=$(CFLAGS) -g -DDEBUG -fsanitize=leak -fsanitize=undefined
-debug: LDFLAGS:=$(LDFLAGS) -fsanitize=address -lubsan -lasan 
-debug: $(TARGETS)
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
-dev: CFLAGS:=$(CFLAGS) -g -DDEBUG
-dev: $(TARGETS)
+$(EXECUTABLE): $(OBJ) $(FUNCTION_OBJ) $(GAME_OBJ)
+	$(CC) $^ -o $@ $(LDLIBS)
 
-.SECONDEXPANSION:
-$(TARGETS): $$(patsubst %, $(OBJDIR)/%, $$($$@_OBJ))
-	$(CC) $(filter %.o, $^) -o $@ $(LDFLAGS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< 
+$(OBJDIR)/%.o: $(FUNCTION_DIR)/%.c | $(OBJDIR)
+	$(CC) -c $< -o $@
+
+$(OBJDIR)/%.o: $(GAME_DIR)/%.c | $(OBJDIR)
+	$(CC) -c $< -o $@
+
 
 clean:
-	rm -rf $(TARGETS) $(BUILD_DIR) obj
-	rm -rf a.out
+	rm -f $(OBJDIR)/*.o $(EXECUTABLE) *.o
