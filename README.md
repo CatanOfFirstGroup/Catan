@@ -3,24 +3,35 @@ This is a Settlers of Catan game implemented in C using Ncurses.
 
 ## Dependencies
 If you want to **play the game, please install the ncurses binary**.
+
+- Ubuntu
 ```
-# Ubuntu
 sudo apt install ncurses-bin ncurses-base
-# Fedora
+```
+- Fedora
+```
 sudo dnf install ncurses
-# Arch
+```
+- Arch
+```
 sudo pacamn -S ncurses
 ```
+
 If you want to **compile the game by yourself, please install the ncurses library**.
+
+- Ubuntu
 ```
-# Ubuntu
 sudo apt install libncurses5-dev
-# Fedora
+```
+- Fedora
+```
 sudo dnf install ncurses-devel
-# Arch
+```
+- Arch
+```
 sudo pacamn -S ncurses
 ```
-After compilation, don't forget to install the ncurses binary to run the game.
+**After compilation, don't forget to install the ncurses binary to run the game.**
 
 ## System Requirements
 - Single core CPU, with 10% usage available.
