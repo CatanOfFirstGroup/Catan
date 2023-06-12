@@ -19,9 +19,9 @@ int main() {
 	int action = startup_init(startup, row, col);
 
 	// Generate game screens
-	WINDOW *board = newwin(row, col / 3, 0, 0);
-	WINDOW *player = newwin(row / 2, col / 3, 0, col / 2);
-	WINDOW *progress = newwin(row / 2, col / 3, row / 2, col / 2);
+	WINDOW *board = newwin(row, col / 2, 0, 0);
+	WINDOW *player = newwin(row / 2, col / 2, 0, col / 2);
+	WINDOW *progress = newwin(row / 2, col / 2, row / 2, col / 2);
 
 	if(action == 0) {
 		GameState state;

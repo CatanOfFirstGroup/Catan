@@ -26,9 +26,12 @@ After compilation, don't forget to install the ncurses binary to run the game.
 - Single core CPU, with 10% usage available.
 - 8 MB RAM available.
 - 64 KB disk space available.
+- At least 80 x 24 size terminal or CLI.
 
 ## How to Play
 After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
+While gaming:  
+In your turn: press [r] to roll dice, press [e] to end your turn.
 **To be added**
 
 ## Documentation

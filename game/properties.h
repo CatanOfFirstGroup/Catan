@@ -11,6 +11,8 @@ typedef enum {
 	DESERT
 } ResourceType;
 
+// disable the auto alignment of structs
+#pragma pack(1)
 
 typedef struct {
 	int x;
@@ -23,6 +25,7 @@ typedef struct {
 } Tile;
 
 typedef struct {
+	int id; // Player ID
 	int resource_cards[6];// Use ResourceType as index
 	int development_cards;// To keep it simple, let's just have one type of development card
 	int settlements;
@@ -34,6 +37,7 @@ typedef struct {
 typedef struct {
 	Tile board[19];
 	Player players[4];
+	int current_player;
 	int current_turn;
 	// ... any other game state variables you need ...
 } GameState;
