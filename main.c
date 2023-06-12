@@ -1,24 +1,44 @@
-// Main process for the final project
+#include "function/tool.h"
+#include "game/game.h"
+#include <ncurses.h>
 
-// Libraries
-#include "project.h"
+int main() {
+	// Initialization
+	initscr();
+	cbreak();
+	noecho();
 
-// Main function
-int main()
-{
-    // Initialize
-    project_init();
+	// Read the terminal screen size
+	int row, col;
+	getmaxyx(stdscr, row, col);
+	curs_set(0);
+	refresh();
 
-    // Main loop
-    // while (1)
-    // {
-    //     // Update
-    //     // project_update();
-    // }
-    
-    // Print the map
-    print_map;
+	// Generate startup screen
+	WINDOW *startup = newwin(row, col, 0, 0);
+	int action = startup_init(startup, row, col);
 
-    // Exit program
-    return 0;
+	// Generate game screens
+	WINDOW *board = newwin(row, col / 3, 0, 0);
+	WINDOW *player = newwin(row / 2, col / 3, 0, col / 2);
+	WINDOW *progress = newwin(row / 2, col / 3, row / 2, col / 2);
+
+	if(action == 0) {
+		GameState state;
+		clear_screen();
+		game_init(board, player, progress, &state);
+		game_loop(board, player, progress, &state);
+	}
+	else if(action == 1) {
+		// menu_init()
+		// To be implemented
+	}
+	else if(action == 2) {
+		endwin();
+		return 0;
+	}
+
+	getch();
+	endwin();
+	return 0;
 }
