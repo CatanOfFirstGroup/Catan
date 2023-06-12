@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+#include <unistd.h> // for NPC to slow down
 
 
 void game_init(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
