@@ -15,11 +15,16 @@ void board_init(WINDOW *win, GameState *state) {
 }
 
 void board_print(WINDOW *win, GameState *state) {
+	// Get window dimension
+	int row, col;
+	getmaxyx(win, row, col);
+
+	// Print the board in the center of the window
 	int layout[5] = {3, 4, 5, 4, 3};
 	int spaces[5] = {2, 1, 0, 1, 2};
 	int counter = 0;
-	int start_i = 1;
-	int start_j = 1;
+	int i_offset = (row - 13)/2;
+	int j_offset = (col - 34)/2;
 	for(int i = 0; i < 5; i++) {
 		for(int j = 0; j < layout[i]; j++) {
 			char resource;
@@ -46,7 +51,7 @@ void board_print(WINDOW *win, GameState *state) {
 					resource = ' ';
 					break;
 			}
-			mvwprintw(win, 3*(i + start_i), 4*(spaces[i] + 2*(j + start_j) - 1), "%c%d", resource, state->board[counter].number_token);
+			mvwprintw(win, 3*(i) + i_offset, 4*(spaces[i] + 2*j) + j_offset, "%c%d", resource, state->board[counter].number_token);
 			counter++;
 			wrefresh(win);
 		}
