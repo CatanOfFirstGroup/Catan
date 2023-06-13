@@ -14,11 +14,11 @@ void progress_print(WINDOW *win, GameState *state);
 void roll_dice(WINDOW *win, GameState *state);
 
 void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
-void startTurn(WINDOW *win, GameState *state);
-void endTurn(WINDOW *win, GameState *state);
+void start_turn(WINDOW *win, GameState *state);
+void end_turn(WINDOW *win, GameState *state);
 void menu(WINDOW *win, GameState *state);
-void buildSettlement(WINDOW *win, GameState *state);
-void buildRoad(WINDOW *win, GameState *state);
+void build_settlement(WINDOW *win, GameState *state);
+void build_road(WINDOW *win, GameState *state);
 
 // NPC
 void npc_act(WINDOW *win, GameState *state);

@@ -47,12 +47,12 @@ void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 	menu(progress, state);
 }
 
-void startTurn(WINDOW *win, GameState *state){
+void start_turn(WINDOW *win, GameState *state){
 	roll_dice(win, state);
 	progress_print(win, state);
 }
 
-void endTurn(WINDOW *win, GameState *state){
+void end_turn(WINDOW *win, GameState *state){
 	state->current_turn++;
 	state->current_player = state->current_turn % 4;
 	progress_print(win, state);
@@ -66,12 +66,12 @@ void menu(WINDOW *win, GameState *state){
 		switch(ch) {
 			case 'r':
 				if(dice_rolled == 0) {
-					startTurn(win, state);
+					start_turn(win, state);
 					dice_rolled = 1;
 				}
 				break;
 			case 'e':
-				endTurn(win, state);
+				end_turn(win, state);
 				for (int i = 0; i < 3; i++)
 					npc_act(win, state);
 				dice_rolled = 0;
@@ -87,14 +87,14 @@ void print_dice(WINDOW *win, int dice){
 	wrefresh(win);
 }
 
-void buildSettlement(WINDOW *win, GameState *state){
+void buil_settlement(WINDOW *win, GameState *state){
 	int player = state->current_player;
 	if(state->players[player].settlements > 0){
 		state->players[player].settlements--;
 		progress_print(win, state);
 	}
 }
-void buildRoad(WINDOW *win, GameState *state){
+void build_road(WINDOW *win, GameState *state){
 	int player = state->current_player;
 	if(state->players[player].roads > 0){
 		state->players[player].roads--;
@@ -105,7 +105,7 @@ void buildRoad(WINDOW *win, GameState *state){
 // NPC
 void npc_act(WINDOW *win, GameState *state) {
 	sleep(1);
-	startTurn(win, state);
+	start_turn(win, state);
 	sleep(1);
-	endTurn(win, state);
+	end_turn(win, state);
 }
