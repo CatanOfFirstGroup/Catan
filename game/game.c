@@ -104,7 +104,8 @@ void buildRoad(WINDOW *win, GameState *state){
 
 // NPC
 void npc_act(WINDOW *win, GameState *state) {
+	sleep(1);
 	startTurn(win, state);
-	sleep(2);
+	sleep(1);
 	endTurn(win, state);
 }

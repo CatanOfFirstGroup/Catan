@@ -34,6 +34,7 @@ sudo pacamn -S ncurses
 **After compilation, don't forget to install the ncurses binary to run the game.**
 
 ## System Requirements
+- Linux, x64 recommended
 - Single core CPU, with 10% usage available.
 - 8 MB RAM available.
 - 64 KB disk space available.
