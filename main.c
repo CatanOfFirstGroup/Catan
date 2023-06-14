@@ -18,6 +18,16 @@ int main() {
 	WINDOW *startup = newwin(row, col, 0, 0);
 	int action = startup_init(startup, row, col);
 
+	// Menubar Setup
+	Menu menus[3];
+	char *texts[] = {"General", "Display", "Exit"};
+	char triggers[] = {'G', 'E'};
+	for(int i = 0; i < 3; i++) {
+		menu_init(menus[i], texts[i], triggers[i]);
+		menu_position(menus[i]);
+	}
+
+
 	// Generate game screens
 	WINDOW *board = newwin(row, col / 2, 0, 0);
 	WINDOW *player = newwin(row / 2, col / 2, 0, col / 2);
