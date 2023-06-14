@@ -20,8 +20,8 @@ int main() {
 
     // Generate game screens
     WINDOW *board = newwin(row, col / 2, 0, 0);
-    WINDOW *player = newwin(row / 2, col / 2, 0, col / 2);
-    WINDOW *progress = newwin(row / 2, col / 2, row - (row / 2), col - (col / 2));
+    WINDOW *player = newwin(row / 2, col - (col / 2), 0, col / 2);
+    WINDOW *progress = newwin(row - (row / 2), col - (col / 2), row / 2, col / 2);
 
     if (action == 0) {
         GameState state;
