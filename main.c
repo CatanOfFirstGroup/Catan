@@ -19,6 +19,7 @@ int main() {
 	int action = startup_init(startup, row, col);
 
 	// Menubar Setup
+	WINDOW *options = newwin(rol/3*2, col/3*2, row/3, col/3);
 	Menu menus[3];
 	char *texts[] = {"General", "Display", "Exit"};
 	char triggers[] = {'G', 'E'};
@@ -40,7 +41,7 @@ int main() {
 		game_loop(board, player, progress, &state);
 	}
 	else if(action == 1) {
-		// menu_init()
+		menu_init();
 		// To be implemented
 	}
 	else if(action == 2) {
