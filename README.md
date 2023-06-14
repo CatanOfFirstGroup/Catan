@@ -16,10 +16,6 @@ sudo dnf install ncurses
 ```
 sudo pacamn -S ncurses
 ```
-- macOS
-```
-brew install ncurses
-```
 
 If you want to **compile the game by yourself, please install the ncurses library**.
 
@@ -35,10 +31,6 @@ sudo dnf install ncurses-devel
 ```
 sudo pacamn -S ncurses
 ```
-- macOS
-```
-brew install ncurses
-```
 **After compilation, don't forget to install the ncurses binary to run the game.**
 
 ## System Requirements
@@ -46,12 +38,12 @@ brew install ncurses
 - Single core CPU, with 10% usage available.
 - 8 MB RAM available.
 - 64 KB disk space available.
-- At least 80 x 24 size terminal or CLI.
+- At least 80 x 25 size terminal or CLI.
 
 ## How to Play
-- After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
-- While gaming:  
-    - In your turn: press [r] to roll dice, press [e] to end your turn.
+After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
+While gaming:  
+In your turn: press [r] to roll dice, press [e] to end your turn.
 **To be added**
 
 ## Documentation
