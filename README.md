@@ -41,6 +41,7 @@ sudo pacamn -S ncurses
 - At least 80 x 26 size terminal or CLI.
 
 ## How to Play
+**Please don't change the resolution of terminal or CLI while gaming. It may cause to blank window.**
 After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
 While gaming:  
 In your turn: press [r] to roll dice, press [e] to end your turn.
