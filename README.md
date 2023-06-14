@@ -38,7 +38,7 @@ sudo pacamn -S ncurses
 - Single core CPU, with 10% usage available.
 - 8 MB RAM available.
 - 64 KB disk space available.
-- At least 80 x 25 size terminal or CLI.
+- At least 80 x 26 size terminal or CLI.
 
 ## How to Play
 After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
