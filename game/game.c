@@ -30,6 +30,9 @@ void progress_print(WINDOW *win, GameState *state) {
 	mvwprintw(win, 4, 2, "Current player's settlements: %d", state->players[player].settlements);
 	mvwprintw(win, 5, 2, "Current player's cities: %d", state->players[player].cities);
 	mvwprintw(win, 6, 2, "Current player's roads: %d", state->players[player].roads);
+	if (player == 0){
+        player_hint(win);
+	}
 	wrefresh(win);
 }
 
