@@ -37,7 +37,7 @@ int startup_menu(WINDOW *win, int row, int col) {
                 }
                 else {
                     highlight--;
-                }
+              }
                 break;
 
             case KEY_DOWN:

@@ -1,17 +1,17 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct vertex {
+typedef struct _vertex {
     int value;
 } Vertex;
 
-typedef struct edge {
+typedef struct _edge {
     int value;
     Vertex* vertex1;
     Vertex* vertex2;
 } Edge;
 
-typedef struct hexagon {
+typedef struct _hexagon {
     int value;
     Edge* edges[6];
     Vertex* vertices[6];

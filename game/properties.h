@@ -1,7 +1,9 @@
 #pragma once
 #define BOARD_SIZE 5
 #define TOTAL_TILES 19
-
+#include <stdio.h>
+#include <stdlib.h>
+#include "hexagonal.h"
 typedef enum {
 	BRICK,
 	LUMBER,
@@ -25,20 +27,21 @@ typedef struct {
 } Tile;
 
 typedef struct {
-	int id; // Player ID
+	int id;               // Player ID
 	int resource_cards[6];// Use ResourceType as index
 	int development_cards;// To keep it simple, let's just have one type of development card
 	int settlements;
 	int cities;
 	int roads;
-
 } Player;
 
 typedef struct {
 	Tile board[19];
-	Player players[4];
+	Player *players;
+	int players_count;
 	int current_player;
 	int current_turn;
+	Hexagon* hexagons[BOARD_SIZE][BOARD_SIZE];
 	// ... any other game state variables you need ...
 } GameState;
 
