@@ -1,7 +1,15 @@
 #include "player.h"
 
 void player_init(WINDOW *win, GameState *state) {
-	for(int i = 0; i < 4; i++) {
+	state->players = (Player *) malloc(state->players_count * sizeof(Player));
+
+	if(state->players == NULL) {
+		printf("Memory allocation failed.\n");
+		exit(1);
+	}
+
+	for(int i = 0; i < state->players_count; i++) {
+		state->players[i].id = i;
 		for(int j = 0; j < 6; j++) {
 			state->players[i].resource_cards[j] = 0;// Start with no resources
 		}
@@ -10,15 +18,15 @@ void player_init(WINDOW *win, GameState *state) {
 		state->players[i].cities = 4;     // Start with 4 cities
 		state->players[i].roads = 15;     // Start with 15 roads
 	}
-	for(int i = 0; i < 4; i++) {
-		player_print(win, &state->players[i], i);
+	for(int i = 0; i < state->players_count; i++) {
+		player_print(win, &state->players[i]);
 	}
 }
 
-void player_print(WINDOW *win, Player *player, int player_num) {
+void player_print(WINDOW *win, Player *player) {
 	wattron(win, A_BOLD);
 	mvwprintw(win, 0, 2, "PLAYER STATS");
-	mvwprintw(win, 0, 15, "[%d]", player_num);
+	mvwprintw(win, 0, 15, "[%d]", player->id);
 	wattroff(win, A_BOLD);
 	mvwprintw(win, 1, 2, "Brick: %d", player->resource_cards[0]);
 	mvwprintw(win, 2, 2, "Lumber: %d", player->resource_cards[1]);

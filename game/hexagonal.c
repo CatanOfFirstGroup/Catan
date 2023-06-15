@@ -114,4 +114,3 @@ void print_hexagons(Hexagon** hexagons, int rows, int cols) {
         }
         printf("\n");
     }
-}

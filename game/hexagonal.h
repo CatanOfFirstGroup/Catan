@@ -22,3 +22,4 @@ void connect_hexagons(Hexagon* hex1, Hexagon* hex2, int edgeValue, int vertexVal
 int longest_edge_with_same_value(Hexagon* hex, int value, int edge);
 void print_hexagon(Hexagon* hex);
 void print_hexagons(Hexagon** hexagons, int rows, int cols);
+

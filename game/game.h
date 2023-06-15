@@ -17,9 +17,11 @@ void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 void startTurn(WINDOW *win, GameState *state);
 void endTurn(WINDOW *win, GameState *state);
 void menu(WINDOW *win, GameState *state);
-void buildSettlement(WINDOW *win, GameState *state);
-void buildRoad(WINDOW *win, GameState *state);
-void buildCity(WINDOW *win, GameState *state);
+
+void build_settlement(WINDOW *win, GameState *state);
+void build_road(WINDOW *win, GameState *state);
+void build_city(WINDOW *win, GameState *state);
+
 void player_hint(WINDOW *win);
 void clear_hint(WINDOW *win);
 
