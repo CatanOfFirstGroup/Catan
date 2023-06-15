@@ -3,16 +3,16 @@
 #include <ncurses.h>
 
 int main() {
-	// Initialization
-	initscr();
-	cbreak();
-	noecho();
+    // Initialization
+    initscr();
+    cbreak();
+    noecho();
 
-	// Read the terminal screen size
-	int row, col;
-	getmaxyx(stdscr, row, col);
-	curs_set(0);
-	refresh();
+    // Read the terminal screen size
+    int row, col;
+    getmaxyx(stdscr, row, col);
+    curs_set(0);
+    refresh();
 
 	// Generate startup screen
 	WINDOW *startup = newwin(row, col, 0, 0);
@@ -56,8 +56,8 @@ int main() {
 			return 0;
 		}
 	}
-
-	getch();
-	endwin();
-	return 0;
+  
+    getch();
+    endwin();
+    return 0;
 }
