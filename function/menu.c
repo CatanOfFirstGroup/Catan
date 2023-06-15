@@ -1,34 +1,82 @@
 #include "menu.h"
 
- int global_start_pos = 2;
-
- void menu_init(Menu menus, char text[1024], char trigger) {
-    strcpy(menus.text, text);
-    menus.trigger = trigger;
+int menu_init(WINDOW *win, GameState *state) {
+	box(win, 0, 0);
+	mvwprintw(win, 0, 2, "OPTIONS");
+	wrefresh(win);
+	return menu_print(win, state);
 }
 
-void menu_print(WINDOW *win, char trigger){
+int menu_print(WINDOW *win, GameState *state) {
+	int row, col;
+	getmaxyx(win, row, col);
+	keypad(win, TRUE);
 
-}
+	char *choices[4] = {
+			"Players: ",
+			"Exit menu",
+			"Exit game",
+	};
 
- void menu_position(Menu menus) {
-    menus.start_pos = global_start_pos;
-    global_start_pos += (strlen(menus.text) + 1);
-}
-
- void menubar_init(WINDOW *win, Menu menus[], int num_menus){
-    global_win = win;
-    for(int i=0; i<3; i++){
-        global_menus[i] = menus[i];
-    }
-    num_menus = global_num_menus;
-}
-
- void menubar_draw(){
-    for(int i=0; i<global_num_menus; i++){
-        int start_x = global_menus[i].start_pos;
-        char msg[100];
-        strcpy(msg, global_menus[i].text);
-        mvwprintw(global_win, 0, start_x, msg);
-    }
+	int choice = 0;
+	int highlight = 0;
+	while(1) {
+		for(int i = 0; i < 3; i++) {
+			if(i == highlight) {
+				wattron(win, A_REVERSE);
+			}
+			if(i == 0) {
+				mvwprintw(win, 2 + i, (col - strlen(choices[i]) - 8) / 2, choices[i]);
+				mvwprintw(win, 2 + i, col / 2, " <  %02d  >", state->players_count);
+			}
+			else {
+				mvwprintw(win, 2 + i, (col - strlen(choices[i])) / 2, choices[i]);
+			}
+			wattroff(win, A_REVERSE);
+		}
+		wrefresh(win);
+		choice = wgetch(win);
+		switch(choice) {
+			case KEY_UP:
+				if(highlight == 0) {
+					highlight = 2;
+				}
+				else {
+					highlight--;
+				}
+				break;
+			case KEY_DOWN:
+				if(highlight == 2) {
+					highlight = 0;
+				}
+				else {
+					highlight++;
+				}
+				break;
+			case KEY_LEFT:
+				if(highlight == 0) {
+					if(state->players_count > 3) {
+						state->players_count--;
+					}
+				}
+				break;
+			case KEY_RIGHT:
+				if(highlight == 0) {
+					if(state->players_count < 6) {
+						state->players_count++;
+					}
+				}
+				break;
+			case '\n':
+				if(highlight == 1) {
+					return 1;
+				}
+				if(highlight == 2) {
+					return 2;
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }

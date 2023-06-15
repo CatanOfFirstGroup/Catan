@@ -19,6 +19,8 @@ void end_turn(WINDOW *win, GameState *state);
 void menu(WINDOW *win, GameState *state);
 void build_settlement(WINDOW *win, GameState *state);
 void build_road(WINDOW *win, GameState *state);
+void player_hint(WINDOW *win);
+void clear_hint(WINDOW *win);
 
 // NPC
 void npc_act(WINDOW *win, GameState *state);

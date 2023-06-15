@@ -38,12 +38,14 @@ void roll_dice(WINDOW *win, GameState *state) {
 	int dice2 = rand() % 6 + 1;
 	int dice = dice1 + dice2;
 	mvwprintw(win, 7, 2, "Dice 1: %d", dice1);
-	mvwprintw(win, 8, 2, "Dice 2: %d", dice2);
-	mvwprintw(win, 9, 2, "Total: %2d", dice);
+	mvwprintw(win, 7, 14, "Dice 2: %d", dice2);
+	mvwprintw(win, 8, 2, "Total: %2d", dice);
 	wrefresh(win);
 }
 void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
-	game_init(board, player, progress, state);
+	board_print(board, state);
+	player_print(player, &state->players[1]);
+	progress_print(progress, state);
 	menu(progress, state);
 }
 
@@ -54,7 +56,7 @@ void start_turn(WINDOW *win, GameState *state){
 
 void end_turn(WINDOW *win, GameState *state){
 	state->current_turn++;
-	state->current_player = state->current_turn % 4;
+	state->current_player = state->current_turn % state->players_count;
 	progress_print(win, state);
 }
 
@@ -72,7 +74,7 @@ void menu(WINDOW *win, GameState *state){
 				break;
 			case 'e':
 				end_turn(win, state);
-				for (int i = 0; i < 3; i++)
+				for (int i = 0; i < state->players_count-1; i++)
 					npc_act(win, state);
 				dice_rolled = 0;
 				break;
@@ -82,12 +84,21 @@ void menu(WINDOW *win, GameState *state){
 	}
 }
 
-void print_dice(WINDOW *win, int dice){
-	mvwprintw(win, 2, 2, "Dice 1: %d", dice);
-	wrefresh(win);
+void player_hint(WINDOW *win) {
+    mvwprintw(win, 9, 2, "It's your turn!");
+    mvwprintw(win, 10, 2, "Press 'r' to roll dice");
+    mvwprintw(win, 11, 2, "Press 'e' to end turn");
+    wrefresh(win);
 }
 
-void buil_settlement(WINDOW *win, GameState *state){
+void clear_hint(WINDOW *win) {
+    mvwprintw(win, 9, 2, "                        ");
+    mvwprintw(win, 10, 2, "                       ");
+    mvwprintw(win, 11, 2, "                       ");
+    wrefresh(win);
+}
+
+void build_settlement(WINDOW *win, GameState *state){
 	int player = state->current_player;
 	if(state->players[player].settlements > 0){
 		state->players[player].settlements--;
