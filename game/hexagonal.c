@@ -1,18 +1,21 @@
 #include "hexagonal.h"
-Hexagon* init_hexagon(int value) {
-    Hexagon* hexagon = (Hexagon*)malloc(sizeof(Hexagon));
-    if (hexagon == NULL) {
-        printf("Failed to allocate memory for hexagon.\n");
-        return NULL;
+Hexagon* init_hexagon(Tile tile) {
+    Hexagon* new_hex = malloc(sizeof(Hexagon));
+    if(new_hex == NULL) {
+        printf("Error! Memory was not allocated.");
+        exit(1); // or handle the error in a way suitable for your program
     }
 
-    hexagon->value = value;
-    for (int i = 0; i < 6; i++) {
-        hexagon->edges[i] = NULL;
-        hexagon->vertices[i] = NULL;
+    new_hex->value = 0;
+    new_hex->tile = tile;
+
+    // Initialize edges and vertices to NULL
+    for(int i = 0; i < 6; i++) {
+        new_hex->edges[i] = NULL;
+        new_hex->vertices[i] = NULL;
     }
 
-    return hexagon;
+    return new_hex;
 }
 
 void connect_hexagons(Hexagon* hex1, Hexagon* hex2, int edgeValue, int vertexValue) {

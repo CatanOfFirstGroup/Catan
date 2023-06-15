@@ -1,13 +1,14 @@
 #include "board.h"
-
+#include "hexagonal.h"
 void board_init(WINDOW *win, GameState *state) {
     // Set up the board
     int layout[5] = {3, 4, 5, 4, 3};
     int spaces[5] = {2, 1, 0, 1, 2};
-
+    int counter = 0;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            state->hexagons[i][j] = init_hexagon(0); // Initialize with value 0
+            state->hexagons[i][j] = init_hexagon(state->board[counter]); // Initialize with value 0
+            counter++;
         }
     }
     for (int i = 0; i < BOARD_SIZE; i++) {
