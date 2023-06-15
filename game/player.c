@@ -18,15 +18,13 @@ void player_init(WINDOW *win, GameState *state) {
 		state->players[i].cities = 4;     // Start with 4 cities
 		state->players[i].roads = 15;     // Start with 15 roads
 	}
-	for(int i = 0; i < state->players_count; i++) {
-		player_print(win, &state->players[i]);
-	}
+		player_print(win, &state->players[0]);
 }
 
 void player_print(WINDOW *win, Player *player) {
 	wattron(win, A_BOLD);
 	mvwprintw(win, 0, 2, "PLAYER STATS");
-	mvwprintw(win, 0, 15, "[%d]", player->id);
+	mvwprintw(win, 0, 15, "[%d]", player->id+1);
 	wattroff(win, A_BOLD);
 	mvwprintw(win, 1, 2, "Brick: %d", player->resource_cards[0]);
 	mvwprintw(win, 2, 2, "Lumber: %d", player->resource_cards[1]);

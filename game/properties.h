@@ -1,6 +1,13 @@
 #pragma once
 #define BOARD_SIZE 5
 #define TOTAL_TILES 19
+#define PRINT_LINE_BOLD(win, row, col, msg) \
+    do { \
+        wattron(win, A_BOLD); \
+        mvwprintw(win, row, col, msg); \
+        wattroff(win, A_BOLD); \
+    } while(0)
+
 #include <stdio.h>
 #include <stdlib.h>
 

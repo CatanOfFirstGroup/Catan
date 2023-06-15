@@ -3,5 +3,6 @@
 #include <stdint.h>
 #include "startup.h"
 #include "menu.h"
+
 void clear_screen();
 

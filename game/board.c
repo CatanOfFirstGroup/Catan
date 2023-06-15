@@ -61,4 +61,3 @@ void board_randomize(GameState *state) {
 		state->board[i].number_token = (rand() % 6) + 1;
 	}
 }
-

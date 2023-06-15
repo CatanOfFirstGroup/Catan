@@ -4,9 +4,10 @@ void game_init(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 	box(board, 0, 0);
 	box(player, 0, 0);
 	box(progress, 0, 0);
-	mvwprintw(board, 0, 2, "GAME BOARD");
+	PRINT_LINE_BOLD(board, 0, 2, "GAME BOARD");
 
-	mvwprintw(progress, 0, 2, "GAME STATS");
+
+	PRINT_LINE_BOLD(progress, 0, 2, "GAME STATS");
 	wrefresh(board);
 	wrefresh(player);
 	wrefresh(progress);
@@ -30,8 +31,11 @@ void progress_print(WINDOW *win, GameState *state) {
 	mvwprintw(win, 4, 2, "Current player's settlements: %d", state->players[player].settlements);
 	mvwprintw(win, 5, 2, "Current player's cities: %d", state->players[player].cities);
 	mvwprintw(win, 6, 2, "Current player's roads: %d", state->players[player].roads);
-	if (player == 0){
-        player_hint(win);
+	if(player == 0) {
+		player_hint(win);
+	}
+	else {
+		clear_hint(win);
 	}
 	wrefresh(win);
 }
@@ -47,26 +51,27 @@ void roll_dice(WINDOW *win, GameState *state) {
 }
 void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
 	board_print(board, state);
-	player_print(player, &state->players[1]);
+	player_print(player, &state->players[0]);
 	progress_print(progress, state);
-	menu(progress, state);
+	menu(progress, player, state);
 }
 
-void start_turn(WINDOW *win, GameState *state){
+void start_turn(WINDOW *win, GameState *state) {
 	roll_dice(win, state);
 	progress_print(win, state);
 }
 
-void end_turn(WINDOW *win, GameState *state){
+void end_turn(WINDOW *win, GameState *state) {
 	state->current_turn++;
 	state->current_player = state->current_turn % state->players_count;
 	progress_print(win, state);
 }
 
-void menu(WINDOW *win, GameState *state){
-
+void menu(WINDOW *win, WINDOW *player, GameState *state) {
+	keypad(stdscr, TRUE);
+	int count = 0;
 	int ch;
-	int dice_rolled = 0; // to check if dice has been rolled
+	int dice_rolled = 0;// to check if dice has been rolled
 	while((ch = getch()) != 'q') {
 		switch(ch) {
 			case 'r':
@@ -77,9 +82,21 @@ void menu(WINDOW *win, GameState *state){
 				break;
 			case 'e':
 				end_turn(win, state);
-				for (int i = 0; i < state->players_count-1; i++)
+				for(int i = 0; i < state->players_count - 1; i++)
 					npc_act(win, state);
 				dice_rolled = 0;
+				break;
+			case KEY_LEFT:
+				if(count > 0) {
+					count--;
+				}
+				player_print(player, &state->players[count]);
+				break;
+			case KEY_RIGHT:
+				if(count < state->players_count - 1) {
+					count++;
+				}
+				player_print(player, &state->players[count]);
 				break;
 			default:
 				break;
@@ -88,29 +105,29 @@ void menu(WINDOW *win, GameState *state){
 }
 
 void player_hint(WINDOW *win) {
-    mvwprintw(win, 9, 2, "It's your turn!");
-    mvwprintw(win, 10, 2, "Press 'r' to roll dice");
-    mvwprintw(win, 11, 2, "Press 'e' to end turn");
-    wrefresh(win);
+	mvwprintw(win, 9, 2, "It's your turn!");
+	mvwprintw(win, 10, 2, "Press 'r' to roll dice");
+	mvwprintw(win, 11, 2, "Press 'e' to end turn");
+	wrefresh(win);
 }
 
 void clear_hint(WINDOW *win) {
-    mvwprintw(win, 9, 2, "                        ");
-    mvwprintw(win, 10, 2, "                       ");
-    mvwprintw(win, 11, 2, "                       ");
-    wrefresh(win);
+	mvwprintw(win, 9, 2, "                        ");
+	mvwprintw(win, 10, 2, "                       ");
+	mvwprintw(win, 11, 2, "                       ");
+	wrefresh(win);
 }
 
-void build_settlement(WINDOW *win, GameState *state){
+void build_settlement(WINDOW *win, GameState *state) {
 	int player = state->current_player;
-	if(state->players[player].settlements > 0){
+	if(state->players[player].settlements > 0) {
 		state->players[player].settlements--;
 		progress_print(win, state);
 	}
 }
-void build_road(WINDOW *win, GameState *state){
+void build_road(WINDOW *win, GameState *state) {
 	int player = state->current_player;
-	if(state->players[player].roads > 0){
+	if(state->players[player].roads > 0) {
 		state->players[player].roads--;
 		progress_print(win, state);
 	}
