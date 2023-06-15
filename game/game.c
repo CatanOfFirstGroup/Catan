@@ -64,7 +64,6 @@ void end_turn(WINDOW *win, GameState *state){
 }
 
 void menu(WINDOW *win, GameState *state){
-
 	int ch;
 	int dice_rolled = 0; // to check if dice has been rolled
 	while((ch = getch()) != 'q') {
@@ -77,6 +76,7 @@ void menu(WINDOW *win, GameState *state){
 				break;
 			case 'e':
 				end_turn(win, state);
+				clear_hint(win);
 				for (int i = 0; i < state->players_count-1; i++)
 					npc_act(win, state);
 				dice_rolled = 0;
@@ -85,6 +85,7 @@ void menu(WINDOW *win, GameState *state){
 				break;
 		}
 	}
+	free(state->players);
 }
 
 void player_hint(WINDOW *win) {
