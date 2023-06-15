@@ -41,7 +41,7 @@ typedef struct _hexagon {
 
 typedef struct {
     int id;                // Player ID
-    int resource_cards[6]; // Use ResourceType as index
+    int resource_cards[6]; // UwesourceType as index
     int development_cards; // To keep it simple, let's just have one type of development card
     int settlements;
     int cities;

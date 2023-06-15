@@ -7,20 +7,10 @@ void board_init(WINDOW *win, GameState *state) {
     int counter = 0;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            state->hexagons[i][j] = init_hexagon(state->board[counter]); // Initialize with value 0
-            counter++;
+            state->hexagons[i][j] = init_hexagon(state->board[counter++]); // Initialize with value 0
         }
     }
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            if (i < BOARD_SIZE - 1) {
-                connect_hexagons(state->hexagons[i][j], state->hexagons[i + 1][j], 0, 0); // Connect downwards
-            }
-            if (j < BOARD_SIZE - 1) {
-                connect_hexagons(state->hexagons[i][j], state->hexagons[i][j + 1], 0, 0); // Connect rightwards
-            }
-        }
-    }
+
 
     board_randomize(state);
     board_print(win, state);
