@@ -18,8 +18,7 @@ void board_init(WINDOW *win, GameState *state) {
 		for(int j = 0; j < layout[i]; j++) {
 			Tile *tile = {
 				state->board[hex_index].type,
-				state->board[hex_index].number_token
-            };
+				state->board[hex_index].number_token};
 			hexagons[hex_index] = init_hexagon(hex_index, tile);
 			hex_index++;
 		}
@@ -75,10 +74,11 @@ void board_print(WINDOW *win, GameState *state) {
 
 void board_randomize(GameState *state) {
 	ResourceType all_resources[] = {BRICK, LUMBER, WOOL, GRAIN, ORE, DESERT};
+	int num_tokens[10] = {2, 3, 4, 5, 6, 8, 9, 10, 11, 12};
 	// Set up the tiles
 	srand(time(NULL));
 	for(int i = 0; i < 19; i++) {
 		state->board[i].type = all_resources[rand() % 6];
-		state->board[i].number_token = (rand() % 6) + 1;
+		state->board[i].number_token = num_tokens[rand() % 10];
 	}
 }
