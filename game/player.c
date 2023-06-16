@@ -17,6 +17,8 @@ void player_init(WINDOW *win, GameState *state) {
 		state->players[i].settlements = 5;// Start with 5 settlements
 		state->players[i].cities = 4;     // Start with 4 cities
 		state->players[i].roads = 15;     // Start with 15 roads
+		state->players[i].longest_road = 0;
+		state->players[i].points = 0;
 	}
 	for(int i = 0; i < state->players_count; i++) {
 		player_print(win, &state->players[i]);
