@@ -38,5 +38,6 @@ void player_print(WINDOW *win, Player *player) {
 	mvwprintw(win, 8, 2, "Settlements: %d", player->settlements);
 	mvwprintw(win, 9, 2, "Cities: %d", player->cities);
 	mvwprintw(win, 10, 2, "Roads: %d", player->roads);
+	mvwprintw(win, 11, 2, "Points: %d", player->points);
 	wrefresh(win);
 }

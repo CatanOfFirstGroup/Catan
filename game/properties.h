@@ -33,6 +33,8 @@ typedef struct {
 	int settlements;
 	int cities;
 	int roads;
+	int longest_road;	  // 1 if the player have longest road
+	int points;			  // Points of player
 } Player;
 
 typedef struct {
