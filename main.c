@@ -46,7 +46,6 @@ int main() {
 				wrefresh(startup);
 			}
 			else if(opt == 2) {
-				free(state.players);
 				endwin();
 				return 0;
 			}

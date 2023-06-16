@@ -35,4 +35,4 @@ $(OBJDIR)/%.o: $(GAME_DIR)/%.c | $(OBJDIR)
 
 
 clean:
-	rm -f $(OBJDIR)/*.o $(EXECUTABLE) *.o
+	rm -f $(OBJDIR)/*.o $(EXECUTABLE) *.o a.out

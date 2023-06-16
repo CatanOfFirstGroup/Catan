@@ -1,30 +1,21 @@
 #include "hexagonal.h"
-Hexagon* init_hexagon(Tile tile) {
-    Hexagon* new_hex = malloc(sizeof(Hexagon));
-    if(new_hex == NULL) {
-        printf("Error! Memory was not allocated.");
-        exit(1); // or handle the error in a way suitable for your program
+Hexagon* init_hexagon(int value) {
+    Hexagon* hexagon = (Hexagon*)malloc(sizeof(Hexagon));
+    if (hexagon == NULL) {
+        printf("Failed to allocate memory for hexagon.\n");
+        return NULL;
     }
 
-    new_hex->value = 0;
-    new_hex->tile = tile;
-
-    // Initialize edges and vertices to NULL
-    for(int i = 0; i < 6; i++) {
-        new_hex->edges[i] = NULL;
-        new_hex->vertices[i] = NULL;
+    hexagon->value = value;
+    for (int i = 0; i < 6; i++) {
+        hexagon->edges[i] = NULL;
+        hexagon->vertices[i] = NULL;
     }
 
-    return new_hex;
+    return hexagon;
 }
 
-void connect_hexagons(Hexagon* hex1, Hexagon* hex2, int edge1Index, int edge2Index, int edgeValue, int vertexValue) {
-    // Check if the edge indices are valid
-    if (edge1Index < 0 || edge1Index >= 6 || edge2Index < 0 || edge2Index >= 6) {
-        printf("Invalid edge index.\n");
-        return;
-    }
-
+void connect_hexagons(Hexagon* hex1, Hexagon* hex2, int edgeValue, int vertexValue) {
     Edge* edge = (Edge*)malloc(sizeof(Edge));
     if (edge == NULL) {
         printf("Failed to allocate memory for edge.\n");
@@ -42,19 +33,20 @@ void connect_hexagons(Hexagon* hex1, Hexagon* hex2, int edge1Index, int edge2Ind
     edge->vertex2 = vertex;
     vertex->value = vertexValue;
 
-    // Connect the specified edges if they are not already connected
-    if (hex1->edges[edge1Index] == NULL) {
-        hex1->edges[edge1Index] = edge;
-        hex1->vertices[edge1Index] = vertex;
-    } else {
-        printf("Edge %d of hexagon 1 is already connected.\n", edge1Index);
+    for (int i = 0; i < 6; i++) {
+        if (hex1->edges[i] == NULL) {
+            hex1->edges[i] = edge;
+            hex1->vertices[i] = vertex;
+            break;
+        }
     }
 
-    if (hex2->edges[edge2Index] == NULL) {
-        hex2->edges[edge2Index] = edge;
-        hex2->vertices[edge2Index] = vertex;
-    } else {
-        printf("Edge %d of hexagon 2 is already connected.\n", edge2Index);
+    for (int i = 0; i < 6; i++) {
+        if (hex2->edges[i] == NULL) {
+            hex2->edges[i] = edge;
+            hex2->vertices[i] = vertex;
+            break;
+        }
     }
 }
 
