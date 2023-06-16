@@ -4,11 +4,11 @@
 #include "startup.h"
 #include "menu.h"
 
-#define PRINT_BOLD_LINE(board, line, column, text) \
+#define PRINT_BOLD_LINE(win, row, col, text) \
     do { \
-        wattron(board, A_BOLD); \
-        mvprintw(line, column, "%s", text); \
-        wattroff(board, A_BOLD); \
+        wattron(win, A_BOLD); \
+        mvwprintw(win, row, col, text); \
+        wattroff(win, A_BOLD); \
     } while(0)
 
 void clear_screen();
