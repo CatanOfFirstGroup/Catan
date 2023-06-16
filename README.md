@@ -36,9 +36,9 @@ sudo pacamn -S ncurses
 ## System Requirements
 - Linux, x64 recommended
 - Single core CPU, with 10% usage available.
-- 8 MB RAM available.
+- 16 MB RAM available.
 - 64 KB disk space available.
-- At least 100 x 26 size terminal or CLI.
+- At least 100 x 30 size terminal or CLI.
 
 ## How to Play
 **Please don't change the resolution of terminal or CLI while gaming. It may cause to blank window.**  
