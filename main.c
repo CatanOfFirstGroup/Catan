@@ -26,8 +26,8 @@ int main() {
 	WINDOW *progress = newwin(row - (row / 2), col - (col / 2), row / 2, col / 2);
 
 	GameState state = {
-			// Set the default players count at 4
-			.players_count = 4,
+		// Set the default players count at 4
+		.players_count = 4,
 	};
 
 	while(1) {
@@ -46,7 +46,6 @@ int main() {
 				wrefresh(startup);
 			}
 			else if(opt == 2) {
-				free(state.players);
 				endwin();
 				return 0;
 			}
