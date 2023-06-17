@@ -36,15 +36,23 @@ sudo pacamn -S ncurses
 ## System Requirements
 - Linux, x64 recommended
 - Single core CPU, with 10% usage available.
-- 16 MB RAM available.
+- 8 MB RAM available.
 - 64 KB disk space available.
 - At least 100 x 30 size terminal or CLI.
 
 ## How to Play
 **Please don't change the resolution of terminal or CLI while gaming. It may cause to blank window.**  
-After launched the game, press [s] to start the game, [o] for setting options, and [q] to quit.  
-While gaming:  
-In your turn: press [r] to roll dice, press [e] to end your turn.
+### After launched the game:
+- press [s] to start the game
+- press [o] for setting options
+- press [q] to quit. 
+- or use arrow keys to select options, and press [enter] 
+### While gaming:  
+#### In your turn: 
+- press [r] to roll dice
+- press [2] to build settlement or city
+- press [3] to build roads
+- press [e] to end your turn
 **To be added**
 
 ## Documentation
