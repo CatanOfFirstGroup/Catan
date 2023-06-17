@@ -42,13 +42,13 @@ sudo pacamn -S ncurses
 
 ## How to Play
 **Please don't change the resolution of terminal or CLI while gaming. It may cause to blank window.**  
-### After launched the game:
+### After launched the game
 - press [s] to start the game
 - press [o] for setting options
 - press [q] to quit. 
 - or use arrow keys to select options, and press [enter] 
-### While gaming:  
-#### In your turn: 
+### While gaming
+#### In your turn
 - press [r] to roll dice
 - press [2] to build settlement or city
 - press [3] to build roads
