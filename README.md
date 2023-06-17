@@ -53,6 +53,7 @@ sudo pacamn -S ncurses
 - press [2] to build settlement or city
 - press [3] to build roads
 - press [e] to end your turn
+  
 **To be added**
 
 ## Documentation
