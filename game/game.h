@@ -13,20 +13,24 @@ void progress_init(WINDOW *win, GameState *state);
 void progress_print(WINDOW *win, GameState *state);
 void roll_dice(WINDOW *win, GameState *state);
 
+void start_turn(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void end_turn(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
 void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
-void start_turn(WINDOW *win, GameState *state);
-void end_turn(WINDOW *win, GameState *state);
-void menu(WINDOW *win, GameState *state);
-void build_settlement(WINDOW *win, GameState *state);
-void build_city(WINDOW *win, GameState *state);
-void build_road(WINDOW *win, GameState *state);
-void buy_development_card(WINDOW *win, GameState *state);
+void build_settlement(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void build_city(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void build_road(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void buy_development_card(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void get_resource(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+
+
 void player_hint(WINDOW *win);
 void clear_hint(WINDOW *win);
+
 
 // if you are already implement this, just cover it
 void calculate_points(GameState *state);
 
-
 // NPC
-void npc_act(WINDOW *win, GameState *state);
+void npc_act(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void npc_show_state(WINDOW *win, const char *string);
+void npc_clear_state(WINDOW *win);

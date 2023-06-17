@@ -43,6 +43,7 @@ typedef struct {
 	int players_count;
 	int current_player;
 	int current_turn;
+	int dice;
 	// ... any other game state variables you need ...
 } GameState;
 
