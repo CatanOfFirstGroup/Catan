@@ -1,5 +1,4 @@
 #include "hexagonal.h"
-#include <ncurses.h>
 
 Hexagon *init_hexagon(int value, Tile *tile) {
 	Hexagon *hexagon = (Hexagon *) malloc(sizeof(Hexagon));
@@ -17,6 +16,7 @@ Hexagon *init_hexagon(int value, Tile *tile) {
 
 	return hexagon;
 }
+
 
 void connect_hexagons(Hexagon *hex1, Hexagon *hex2) {
 	// Create the edge and vertices
@@ -110,15 +110,7 @@ void connect_hexagon_vertices(Hexagon *hexagons[]) {
 	connect_hexagons(hexagons[15], hexagons[18]);
 }
 
-void print_hexagon(Hexagon *hex) {
-	printf("Hexagon value: %d\n", hex->value);
-	for(int i = 0; i < 6; i++) {
-		if(hex->edges[i] != NULL) {
-			printf("Edge %d value: %d\n", i, hex->edges[i]->value);
-			printf("Vertex %d value: %d\n", i, hex->vertices[i]->value);
-		}
-	}
-}
+
 
 int longest_edge_with_same_value(Hexagon *hex, int value, int edge) {
 	if(hex == NULL || hex->value != value)
@@ -130,65 +122,5 @@ int longest_edge_with_same_value(Hexagon *hex, int value, int edge) {
 
 	return 1 + longest_edge_with_same_value(neighbor, value, edge);
 }
-void print_hexagons(Hexagon **hexagons, int rows, int cols) {
-	for(int i = 0; i < rows; i++) {
-		// Print leading spaces for offset
-		for(int k = 0; k < i; k++) {
-			printf("   ");
-		}
 
-		// Print hexagons and vertices
-		for(int j = 0; j < cols; j++) {
-			printf(" / \\ ");
-			if(j < cols - 1) {
-				printf("--");
-			}
-		}
-		printf("\n");
 
-		// Print leading spaces for offset
-		for(int k = 0; k < i; k++) {
-			printf("   ");
-		}
-
-		// Print edges and hexagons
-		for(int j = 0; j < cols; j++) {
-			printf("| %d |", hexagons[i][j].value);
-			if(j < cols - 1) {
-				printf("\\ ");
-			}
-		}
-		printf("\n");
-
-		// Print leading spaces for offset
-		for(int k = 0; k < i; k++) {
-			printf("   ");
-		}
-
-		// Print vertices and edges
-		for(int j = 0; j < cols; j++) {
-			printf(" \\ / ");
-			if(j < cols - 1) {
-				printf("--");
-			}
-		}
-		printf("\n");
-	}
-}
-
-Hexagon *hexagon_init(int value, Tile *tile) {
-	Hexagon *hexagon = (Hexagon *) malloc(sizeof(Hexagon));
-	if(hexagon == NULL) {
-		printf("Failed to allocate memory for hexagon.\n");
-		return NULL;
-	}
-	hexagon->value = value;
-	hexagon->tile = tile;
-	for(int i = 0; i < 6; i++) {
-		hexagon->edges[i] = NULL;
-		hexagon->vertices[i] = NULL;
-	}
-
-	return hexagon;
-
-}

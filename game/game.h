@@ -20,6 +20,10 @@ void build_settlement(WINDOW *board, WINDOW *player, WINDOW *progress, GameState
 void build_city(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
 void build_road(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
 void buy_development_card(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+void get_resource(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
+
+
+
 void player_hint(WINDOW *win);
 void clear_hint(WINDOW *win);
 
