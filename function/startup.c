@@ -14,11 +14,11 @@ int startup_init(WINDOW *win, int row, int col) {
 }
 
 int startup_menu(WINDOW *win, int row, int col) {
-    // So that the startup screen can detect keyboard input
+    // So that the startup screen can detect keyboard input such as arrow keys
     keypad(win, true);
 
     // Choices for the startup menu
-    char *choices[3] = {"Start     [S]", "Option    [O]", "Quit      [Q]"};
+    char *choices[3] = {"Start     [s]", "Option    [o]", "Quit      [q]"};
     int choice, highlight = 0;
 
     while(1) {

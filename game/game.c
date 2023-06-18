@@ -1,15 +1,12 @@
 #include "game.h"
+#include "../function/tool.h"
 
 void game_init(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
 	box(board, 0, 0);
 	box(player, 0, 0);
 	box(progress, 0, 0);
-	wattron(board, A_BOLD);
-	mvwprintw(board, 0, 2, "GAME BOARD");
-	wattroff(board, A_BOLD);
-	wattron(progress, A_BOLD);
-	mvwprintw(progress, 0, 2, "GAME STATS");
-	wattroff(progress, A_BOLD);
+	PRINT_BOLD_LINE(board, 0, 2, "GAME BOARD");
+	PRINT_BOLD_LINE(progress, 0, 2, "GAME STATS");
 	wrefresh(board);
 	wrefresh(player);
 	wrefresh(progress);

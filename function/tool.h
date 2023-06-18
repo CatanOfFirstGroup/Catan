@@ -3,5 +3,12 @@
 #include <stdint.h>
 #include "startup.h"
 #include "menu.h"
-void clear_screen();
 
+#define PRINT_BOLD_LINE(win, row, col, text) \
+    do { \
+        wattron(win, A_BOLD); \
+        mvwprintw(win, row, col, text); \
+        wattroff(win, A_BOLD); \
+    } while(0)
+
+void clear_screen();

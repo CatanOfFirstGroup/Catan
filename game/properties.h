@@ -17,11 +17,6 @@ typedef enum {
 #pragma pack(1)
 
 typedef struct {
-	int x;
-	int y;
-} Coordinates;
-
-typedef struct {
 	ResourceType type;
 	int number_token;
 } Tile;
@@ -45,7 +40,3 @@ typedef struct {
 	int current_turn;
 	// ... any other game state variables you need ...
 } GameState;
-
-typedef struct {
-	Tile tiles[BOARD_SIZE * 2 - 1][BOARD_SIZE * 2 - 1];
-} Board;
