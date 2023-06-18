@@ -1,6 +1,6 @@
 #include "hexagonal.h"
 
-Hexagon *init_hexagon(int value, Tile *tile) {
+Hexagon *init_hexagons(int value, Tile *tile) {
 	Hexagon *hexagon = (Hexagon *) malloc(sizeof(Hexagon));
 	if(hexagon == NULL) {
 		printf("Failed to allocate memory for hexagon.\n");

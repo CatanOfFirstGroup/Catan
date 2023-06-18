@@ -11,7 +11,7 @@ void board_init(WINDOW *win, GameState *state) {
     //create a list of hexagons
 	Hexagon *hexagons[total_hexagons];
 	for (int i = 0; i < total_hexagons; i++) {
-		hexagons[i] = &state->board[i];
+		hexagons[i] = init_hexagons(0, &state->board[i]);
 	}
 	connect_hexagon_vertices(hexagons);
 
