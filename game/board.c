@@ -67,37 +67,6 @@ void board_print(WINDOW *win, GameState *state) {
 }
 
 void board_randomize(GameState *state) {
-<<<<<<< HEAD
-	ResourceType all_resources[] = {
-		BRICK, BRICK, BRICK, LUMBER, LUMBER, LUMBER, LUMBER, WOOL, WOOL, WOOL,
-		WOOL, GRAIN, GRAIN, GRAIN, GRAIN, ORE, ORE, ORE, DESERT};
-	int all_numbers[] = {2, 3, 3, 4, 4, 5, 5, 6, 6,
-						 8, 8, 9, 9, 10, 10, 11, 11, 12};
-	// Randomize
-	srand(time(NULL));
-	for(int i = 0, rand_num = 0; i < 100; i++) {
-		ResourceType temp_res = all_resources[0];
-		rand_num = rand() % 19;
-		all_resources[0] = all_resources[rand_num];
-		all_resources[rand_num] = temp_res;
-		rand_num = rand() % 18;
-		int temp_num = all_numbers[0];
-		all_numbers[0] = all_numbers[rand_num];
-		all_numbers[rand_num] = temp_num;
-	}
-	// Set up tiles
-	for(int i = 0, j = 0; i < TOTAL_TILES; i++) {
-		state->board[i].type = all_resources[i];
-		if(all_resources[i] != DESERT) {
-			state->board[i].number_token = all_numbers[j];
-			j++;
-		}
-		else
-			state->board[i].number_token = 7;
-	}
-	// create hexagonal
-	
-=======
     ResourceType all_resources[] = {
         BRICK, BRICK, BRICK, LUMBER, LUMBER, LUMBER, LUMBER, WOOL, WOOL, WOOL,
         WOOL, GRAIN, GRAIN, GRAIN, GRAIN, ORE, ORE, ORE, DESERT};
@@ -124,7 +93,6 @@ void board_randomize(GameState *state) {
         } else
             state->board[i].number_token = 7;
     }
->>>>>>> ae3fea182c335712c5d4dc69bf358c5f13580d68
 }
 
 void hexagon_print(WINDOW *win, int row, int col) {

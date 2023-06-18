@@ -52,7 +52,9 @@ sudo pacamn -S ncurses
 - press [r] to roll dice
 - press [2] to build settlement or city
 - press [3] to build roads
+- press [f] to buy development card
 - press [e] to end your turn
+- press [q] to quit game
   
 **To be added**
 

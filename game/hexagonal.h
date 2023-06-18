@@ -23,11 +23,5 @@ typedef struct hexagon {
 
 Hexagon *init_hexagons(int value, Tile *tile);
 void connect_hexagons(Hexagon *hex1, Hexagon *hex2);
-<<<<<<< HEAD
-// int longest_edge_with_same_value(Hexagon *hex, int value, int edge);
-void print_hexagon(Hexagon *hex);
-void print_hexagons(Hexagon **hexagons, int rows, int cols);
-=======
 int longest_edge_with_same_value(Hexagon *hex, int value, int edge);
->>>>>>> ae3fea182c335712c5d4dc69bf358c5f13580d68
 void connect_hexagon_vertices(Hexagon *hexagons[]);
