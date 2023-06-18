@@ -85,6 +85,8 @@ void board_randomize(GameState *state) {
 		else
 			state->board[i].number_token = 7;
 	}
+	// create hexagonal
+	
 }
 
 void hexagon_print(WINDOW *win, int row, int col) {

@@ -120,16 +120,16 @@ void print_hexagon(Hexagon *hex) {
 	}
 }
 
-int longest_edge_with_same_value(Hexagon *hex, int value, int edge) {
-	if(hex == NULL || hex->value != value)
-		return 0;
+// int longest_edge_with_same_value(Hexagon *hex, int value, int edge) {
+// 	if(hex == NULL || hex->value != value)
+// 		return 0;
 
-	Edge *neighbor = hex->edges[edge];
-	if(neighbor == NULL)
-		return 1;
+// 	Edge *neighbor = hex->edges[edge];
+// 	if(neighbor == NULL)
+// 		return 1;
 
-	return 1 + longest_edge_with_same_value(neighbor, value, edge);
-}
+// 	return 1 + longest_edge_with_same_value(neighbor, value, edge);
+// }
 void print_hexagons(Hexagon **hexagons, int rows, int cols) {
 	for(int i = 0; i < rows; i++) {
 		// Print leading spaces for offset
@@ -176,19 +176,19 @@ void print_hexagons(Hexagon **hexagons, int rows, int cols) {
 	}
 }
 
-Hexagon *hexagon_init(int value, Tile *tile) {
-	Hexagon *hexagon = (Hexagon *) malloc(sizeof(Hexagon));
-	if(hexagon == NULL) {
-		printf("Failed to allocate memory for hexagon.\n");
-		return NULL;
-	}
-	hexagon->value = value;
-	hexagon->tile = tile;
-	for(int i = 0; i < 6; i++) {
-		hexagon->edges[i] = NULL;
-		hexagon->vertices[i] = NULL;
-	}
+// Hexagon *hexagon_init(int value, Tile *tile) {
+// 	Hexagon *hexagon = (Hexagon *) malloc(sizeof(Hexagon));
+// 	if(hexagon == NULL) {
+// 		printf("Failed to allocate memory for hexagon.\n");
+// 		return NULL;
+// 	}
+// 	hexagon->value = value;
+// 	hexagon->tile = tile;
+// 	for(int i = 0; i < 6; i++) {
+// 		hexagon->edges[i] = NULL;
+// 		hexagon->vertices[i] = NULL;
+// 	}
 
-	return hexagon;
+// 	return hexagon;
 
-}
+// }

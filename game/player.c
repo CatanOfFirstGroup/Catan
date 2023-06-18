@@ -27,16 +27,20 @@ void player_print(WINDOW *win, Player *player) {
 	wattron(win, A_BOLD);
 	mvwprintw(win, 0, 2, "YOUR STATS");
 	wattroff(win, A_BOLD);
-	mvwprintw(win, 1, 2, "Brick: %d", player->resource_cards[0]);
-	mvwprintw(win, 2, 2, "Lumber: %d", player->resource_cards[1]);
-	mvwprintw(win, 3, 2, "Wool: %d", player->resource_cards[2]);
-	mvwprintw(win, 4, 2, "Grain: %d", player->resource_cards[3]);
-	mvwprintw(win, 5, 2, "Ore: %d", player->resource_cards[4]);
-	mvwprintw(win, 6, 2, "Any: %d", player->resource_cards[5]);
+	mvwprintw(win, 1, 2, "Brick: %d    ", player->resource_cards[0]);
+	mvwprintw(win, 2, 2, "Lumber: %d   ", player->resource_cards[1]);
+	mvwprintw(win, 3, 2, "Wool: %d     ", player->resource_cards[2]);
+	mvwprintw(win, 4, 2, "Grain: %d    ", player->resource_cards[3]);
+	mvwprintw(win, 5, 2, "Ore: %d      ", player->resource_cards[4]);
+	mvwprintw(win, 6, 2, "Any: %d      ", player->resource_cards[5]);
 	mvwprintw(win, 7, 2, "Development Cards: %d", player->development_cards);
 	mvwprintw(win, 8, 2, "Settlements: %d", player->settlements);
 	mvwprintw(win, 9, 2, "Cities: %d", player->cities);
 	mvwprintw(win, 10, 2, "Roads: %d", player->roads);
-	mvwprintw(win, 11, 2, "Points: %d", player->points);
+	if (player->longest_road)
+		mvwprintw(win, 11, 2, "Longest road: Yes");
+	else
+		mvwprintw(win, 11, 2, "Longest road: No ");
+	mvwprintw(win, 12, 2, "Points: %d", player->points);
 	wrefresh(win);
 }

@@ -36,6 +36,7 @@ void progress_print(WINDOW *win, GameState *state) {
 	mvwprintw(win, 4, 2, "Current player's settlements available: %d", state->players[player].settlements);
 	mvwprintw(win, 5, 2, "Current player's cities available: %d", state->players[player].cities);
 	mvwprintw(win, 6, 2, "Current player's roads available: %d", state->players[player].roads);
+	mvwprintw(win, 7, 2, "Current player's points: %d", state->players[player].points);
 	if (player == 0){
         player_hint(win);
 	}
@@ -46,15 +47,16 @@ void roll_dice(WINDOW *win, GameState *state) {
 	int dice1 = rand() % 6 + 1;
 	int dice2 = rand() % 6 + 1;
 	int dice = dice1 + dice2;
-	mvwprintw(win, 7, 2, "Dice 1: %d", dice1);
-	mvwprintw(win, 7, 14, "Dice 2: %d", dice2);
-	mvwprintw(win, 8, 2, "Total: %2d", dice);
+	state->dice = dice;
+	mvwprintw(win, 8, 2, "Dice 1: %d", dice1);
+	mvwprintw(win, 8, 14, "Dice 2: %d", dice2);
+	mvwprintw(win, 9, 2, "Total: %2d", dice);
 	wrefresh(win);
 }
 
 void start_turn(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state){
 	roll_dice(progress, state);
-	// get_resources();
+	get_resource(board, player, progress, state);
 	board_print(board, state);
 	player_print(player, &state->players[0]);
 	progress_print(progress, state);
@@ -78,7 +80,10 @@ void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 				if(dice_rolled == 0) {
 					start_turn(board, player, progress, state);
 					dice_rolled = 1;
+					show_state(progress, "Roll dices");
 				}
+				else
+					show_state(progress, "Dice already rolled");
 				break;
 			case 'e':
 				if (dice_rolled) {
@@ -88,14 +93,19 @@ void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 						npc_act(board, player, progress, state);
 					dice_rolled = 0;
 				}
+				else
+					show_state(progress, "You have not rolled dice");
 				break;
 			case '2':
-				if (/*there is a settlement*/0)
-					build_city(board, player, progress, state);
-				else
+				if (build_city(board, player, progress, state) == 0)
 					build_settlement(board, player, progress, state);
+				break;
 			case '3':
 				build_road(board, player, progress, state);
+				break;
+			case 'f':
+				buy_development_card(board, player, progress, state);
+				break;
 			default:
 				break;
 		}
@@ -107,20 +117,24 @@ void game_loop(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state
 }
 
 void player_hint(WINDOW *win) {
-    mvwprintw(win, 9, 2, "It's your turn!");
-    mvwprintw(win, 10, 2, "Press 'r' to roll dice");
-    mvwprintw(win, 11, 2, "Press '2' to build city or settlement");
-	mvwprintw(win, 12, 2, "Press '3' to build road");
-	mvwprintw(win, 13, 2, "Press 'e' to end turn");
+    mvwprintw(win, 10, 2, "It's your turn!");
+    mvwprintw(win, 11, 2, "Press 'r' to roll dice");
+    mvwprintw(win, 12, 2, "Press '2' to build city or settlement");
+	mvwprintw(win, 13, 2, "Press '3' to build road");
+	mvwprintw(win, 14, 2, "Press 'f' to buy development card");
+	mvwprintw(win, 15, 2, "Press 'e' to end turn");
+	mvwprintw(win, 16, 2, "Press 'q' to quit game");
     wrefresh(win);
 }
 
 void clear_hint(WINDOW *win) {
-    mvwprintw(win, 9, 2, "                                       ");
-    mvwprintw(win, 10, 2, "                                      ");
-    mvwprintw(win, 11, 2, "                                      ");
-	mvwprintw(win, 12, 2, "                                      ");
-	mvwprintw(win, 13, 2, "                                      ");
+    mvwprintw(win, 10, 2, "                                       ");
+    mvwprintw(win, 11, 2, "                                       ");
+    mvwprintw(win, 12, 2, "                                       ");
+	mvwprintw(win, 13, 2, "                                       ");
+	mvwprintw(win, 14, 2, "                                       ");
+	mvwprintw(win, 15, 2, "                                       ");
+	mvwprintw(win, 16, 2, "                                       ");
     wrefresh(win);
 }
 
@@ -145,9 +159,12 @@ void build_settlement(WINDOW *board, WINDOW *player, WINDOW *progress, GameState
 		board_print(board, state);
 		player_print(player, &state->players[0]);
 		progress_print(progress, state);
+		show_state(progress, "Build settlement successfully");
 	}
+	else
+		show_state(progress, "Build settlement failed");
 }
-void build_city(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
+int build_city(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
 	int current_player = state->current_player;
 	int *pGrains = &state->players[current_player].resource_cards[GRAIN];
 	int *pOre = &state->players[current_player].resource_cards[ORE];
@@ -165,7 +182,11 @@ void build_city(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *stat
 		board_print(board, state);
 		player_print(player, &state->players[0]);
 		progress_print(progress, state);
+		show_state(progress, "Build city successfully");
+		return 1;
 	}
+	show_state(progress, "Build city failed");
+	return 0;
 }
 void build_road(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state){
 	int current_player = state->current_player;
@@ -182,7 +203,10 @@ void build_road(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *stat
 		board_print(board, state);
 		player_print(player, &state->players[0]);
 		progress_print(progress, state);
+		show_state(progress, "Build road successfully");
 	}
+	else
+		show_state(progress, "Build road failed");
 }
 void buy_development_card(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
 	int current_player = state->current_player;
@@ -200,12 +224,15 @@ void buy_development_card(WINDOW *board, WINDOW *player, WINDOW *progress, GameS
 		board_print(board, state);
 		player_print(player, &state->players[0]);
 		progress_print(progress, state);
+		show_state(progress, "Buy development card successfully");
 	}
+	else
+		show_state(progress, "Buy development card failed");
 }
 
 // if you are already implement this, just cover it
 void calculate_points(GameState *state) {
-	// check_longest_road();
+	check_longest_road(state);
 	for (int i = 0; i < state->players_count; i++) {
 		int points = 0;
 		points += 5 - state->players[i].settlements;
@@ -213,18 +240,39 @@ void calculate_points(GameState *state) {
 		if (state->players[i].longest_road)
 			points += 2;
 		points += state->players[i].development_cards;
-		// if (points >= 10)
-		// 	end_game(i);
+		if (points >= 10)
+			end_game(i);
 		state->players[i].points = points;
+	}
+}
+
+void check_longest_road(GameState *state) {
+	int longest = 0, index[6] = {0};
+	for (int i = 0; i < state->players_count; i++) {
+		int temp = 15 - state->players[i].roads;
+		if (temp)
+			if (longest < temp) {
+				longest = temp;
+				for (int k = 0; k < 6; k++) {
+					index[k] = 0;
+				}
+				index[i] = 1;
+			}
+			else if (longest == temp) {
+				index[i] = 1;
+			}
+	}
+	for (int i = 0; i < state->players_count; i++) {
+		state->players[i].longest_road = index[i];
 	}
 }
 
 // NPC
 void npc_act(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
 	start_turn(board, player, progress, state);
-	npc_show_state(progress, "Roll dices");
+	show_state(progress, "Roll dices");
 	usleep(500000);
-	npc_show_state(progress, "Thinking");
+	show_state(progress, "Thinking");
 	usleep(500000);
 	int current_player = state->current_player;
 	int bricks = state->players[current_player].resource_cards[BRICK];
@@ -240,7 +288,7 @@ void npc_act(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) 
 		grains > 0 &&
 		ores > 0 &&
 		points == 9) {
-		npc_show_state(progress, "Going to win!");
+		show_state(progress, "Going to win!");
 		usleep(500000);
 		buy_development_card(board, player, progress, state);
 		end_turn(board, player, progress, state);
@@ -249,7 +297,7 @@ void npc_act(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) 
 		grains >= 2 &&
 		cities_available > 0 &&
 		settlements_available < 5) {
-		npc_show_state(progress, "Building city");
+		show_state(progress, "Building city");
 		usleep(500000);
 		build_city(board, player, progress, state);
 	}
@@ -258,35 +306,90 @@ void npc_act(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) 
 		wools > 2 &&
 		grains > 2 &&
 		settlements_available > 0) {
-		npc_show_state(progress, "Building settlement");
+		show_state(progress, "Building settlement");
 		usleep(500000);
 		build_settlement(board, player, progress, state);
 	}
 	if (bricks > 2 &&
 		lumbers > 2 &&
 		roads_available > 0) {
-		npc_show_state(progress, "Building road");
+		show_state(progress, "Building road");
 		usleep(500000);
 		build_road(board, player, progress, state);
 	}
 	if (wools > 3 &&
 	    grains > 3 &&
 		ores > 0) {
-		npc_show_state(progress, "Buying Development card");
+		show_state(progress, "Buying Development card");
 		usleep(500000);
 		buy_development_card(board, player, progress, state);
 	}
-	npc_clear_state(progress);
+	clear_state(progress);
 	end_turn(board, player, progress, state);
 }
 
-void npc_show_state(WINDOW *win, const char *str) {
-	mvwprintw(win, 10, 2, "                                            ");
-	mvwprintw(win, 10, 2, "%s", str);
+void show_state(WINDOW *win, const char *str) {
+	clear_state(win);
+	mvwprintw(win, 17, 2, "%s", str);
 	wrefresh(win);
 }
 
-void npc_clear_state(WINDOW *win) {
-	mvwprintw(win, 10, 2, "                                            ");
+void clear_state(WINDOW *win) {
+	mvwprintw(win, 17, 2, "                                            ");
 	wrefresh(win);
+}
+
+void get_resource(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state) {
+    int dice = state->dice;
+    for (int i = 0; i < state->players_count; i++) {
+        int *pBricks = &state->players[i].resource_cards[BRICK];
+        int *pLumbers = &state->players[i].resource_cards[LUMBER];
+        int *pWools = &state->players[i].resource_cards[WOOL];
+        int *pGrains = &state->players[i].resource_cards[GRAIN];
+        int *pOre = &state->players[i].resource_cards[ORE];
+        for (int j = 0; j < 19; j++) {
+            if (state->board[j].number_token == dice) {
+                switch (state->board[j].type) {
+                    case BRICK:
+                        (*pBricks)++;
+                        break;
+                    case LUMBER:
+                        (*pLumbers)++;
+                        break;
+                    case WOOL:
+                        (*pWools)++;
+                        break;
+                    case GRAIN:
+                        (*pGrains)++;
+                        break;
+                    case ORE:
+                        (*pOre)++;
+                        break;
+                }
+            }
+        }
+    }
+    board_print(board, state);
+    player_print(player, &state->players[0]);
+    progress_print(progress, state);
+}
+
+void end_game(int player) {
+	clear_screen();
+	int row, col;
+	getmaxyx(stdscr, row, col);
+	WINDOW *ending = newwin(row, col, 0, 0);
+	wattron(ending, A_BOLD | A_REVERSE);
+	char end_string[20] = {0};
+	if (player == 0)
+		sprintf(end_string, "YOU WIN!");
+	else
+		sprintf(end_string, "NPC %d WIN!", player);
+	int offset = strlen(end_string) / 2;
+	mvwprintw(ending, row / 2, (col / 2) - offset, end_string);
+	mvwprintw(ending, (row / 2) + 1, (col / 2) - 11, "Press any key to leave");
+	keypad(ending, TRUE);
+	wgetch(ending);
+	endwin();
+	exit(EXIT_SUCCESS);
 }
