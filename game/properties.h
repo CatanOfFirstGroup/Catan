@@ -41,3 +41,7 @@ typedef struct {
 	int dice;
 	// ... any other game state variables you need ...
 } GameState;
+
+typedef struct {
+	Tile tiles[BOARD_SIZE * 2 - 1][BOARD_SIZE * 2 - 1];
+} Board;
