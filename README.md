@@ -6,7 +6,7 @@ This is a Settlers of Catan game implemented in C using Ncurses.
 - Single core CPU, with 5% usage available.
 - 8 MB RAM available.
 - 64 KB disk space available.
-- At least 100 x 30 size terminal or CLI.
+- At least 100 x 50 size terminal or CLI.
 
 ## Dependencies
 If you want to **play the game, please install the ncurses binary**.
