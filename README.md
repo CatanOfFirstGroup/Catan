@@ -21,7 +21,7 @@ sudo dnf install ncurses
 ```
 - Arch
 ```
-sudo pacamn -S ncurses
+sudo pacman -S ncurses
 ```
 
 If you want to **compile the game by yourself, please install the ncurses library**.
@@ -36,7 +36,7 @@ sudo dnf install ncurses-devel
 ```
 - Arch
 ```
-sudo pacamn -S ncurses
+sudo pacman -S ncurses
 ```
 **After compilation, don't forget to install the ncurses binary to run the game.**
 
