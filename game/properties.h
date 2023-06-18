@@ -17,11 +17,6 @@ typedef enum {
 #pragma pack(1)
 
 typedef struct {
-	int x;
-	int y;
-} Coordinates;
-
-typedef struct {
 	ResourceType type;
 	int number_token;
 } Tile;

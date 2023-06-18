@@ -23,9 +23,9 @@ void buy_development_card(WINDOW *board, WINDOW *player, WINDOW *progress, GameS
 void get_resource(WINDOW *board, WINDOW *player, WINDOW *progress, GameState *state);
 
 
+
 void player_hint(WINDOW *win);
 void clear_hint(WINDOW *win);
-
 
 // if you are already implement this, just cover it
 void calculate_points(GameState *state);
